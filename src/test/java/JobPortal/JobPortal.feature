@@ -1,5 +1,11 @@
 Feature: job portal application
 
+  Background: setting variables
+    * def var1 = 10
+    * def var2 = 'c'
+    * def var3 = 'amol ujagare'
+    * def var4 = true
+
   @CreateUserJson
   Scenario: to check the create job request executes successfully
     Given url 'http://localhost:9897/'
@@ -48,6 +54,15 @@ Feature: job portal application
     And match response.project[0].technology[*] == ["React.js","Node.js","Express.js","MongoDB","AWS"]
     And match response.project[0].technology[*] contains ["React.js","Node.js"]
 
+
+  @CreateUserJsonFile
+  Scenario: to check the create job request executes successfully
+    Given url 'http://localhost:9897/'
+    And path  '/normal/webapi/add'
+    *   def body = read('json/createUser.json')
+    And request body
+    When method post
+    Then status 201
 
 
   @CreateUserXml
@@ -123,5 +138,32 @@ Feature: job portal application
       </project>
     </project>
   </item>
+
+
 </List>
     """
+
+    And match response/List/item/jobTitle == 'Software Engg'
+    And match response/List/item/experience/experience[1] == 'Google'
+    And match response/List/item/experience/experience == '#[3]'
+    And match response/List/item/project/project/technology/technology == '#[3]'
+    And match response/List/item/experience/experience[3] == 'Mobile Iron'
+
+
+
+    @VariablesDemo
+    Scenario: checking variables
+      Given print 'variables demo'
+      When def a = 10
+      And def b = 20
+      And def c = 30
+      * def var1 = 1000
+      * print 'var1=' , var1
+      * print 'var2=' , var2
+      * print 'var3=' , var3
+      * print 'var4=' , var4
+      * print 'a=' , a
+      * print 'b=' , b
+      * print 'c=' , c
+
+

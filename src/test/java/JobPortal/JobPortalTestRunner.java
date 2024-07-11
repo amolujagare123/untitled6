@@ -9,6 +9,6 @@ public class JobPortalTestRunner {
     {
         return Karate.run("JobPortal")
                 .relativeTo(getClass())
-                .tags("@GetUserXml");
+                .tags("@CreateUserJsonFile");
     }
 }

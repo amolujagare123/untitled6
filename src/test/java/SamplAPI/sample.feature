@@ -1,9 +1,14 @@
 Feature: all sample requests
 
 
+  Background: initializing required variables
+    * def myUrl = 'https://reqres.in'
+    * def myPath = '/api/users'
+
   @listUsers
   Scenario: to test the get all user request lists users successfully
-    Given url 'https://reqres.in'
+ #   Given url 'https://reqres.in'
+    Given url myUrl
     And path '/api/users'
     And param  page = 2
     When method get
@@ -69,7 +74,8 @@ Feature: all sample requests
 
     @createUser
   Scenario: to test the Post request creates users successfully
-    Given url 'https://reqres.in'
+    #   Given url 'https://reqres.in'
+      Given url myUrl
     And path '/api/users'
    #   * header Content-Type = 'application/json'
     And  request
@@ -85,10 +91,34 @@ Feature: all sample requests
       * print "ResponseTime = " , responseTime
       And assert responseTime < 2000
 
+
+  @createUserEE
+  Scenario: to test the Post request creates users successfully
+    #   Given url 'https://reqres.in'
+    Given url myUrl
+    And path '/api/users'
+   #   * header Content-Type = 'application/json'
+    * def name = 'Abhiram'
+    * def job = 'Test Lead'
+    And  request
+      """
+      {
+        "name": "#(name)",
+        "job": "#(job)"
+       }
+      """
+    When method post
+    Then status 201
+    And match response.name == 'morpheus'
+    * print "ResponseTime = " , responseTime
+    And assert responseTime < 2000
+
   @UpdateUser
   Scenario: to test the Put request Updates users successfully
-    Given url 'https://reqres.in'
-    And path '/api/users/2'
+     #   Given url 'https://reqres.in'
+    Given url myUrl
+ #   And path '/api/users/2'
+    And path myPath , '/2'
     And  request
       """
       {
@@ -102,8 +132,10 @@ Feature: all sample requests
 
   @DeleteUser
   Scenario: to test the Put request Updates users successfully
-    Given url 'https://reqres.in'
-    And path '/api/users/2'
+    #   Given url 'https://reqres.in'
+    Given url myUrl
+  #   And path '/api/users/2'
+    And path myPath , '/2'
     When method delete
     Then status 204
 

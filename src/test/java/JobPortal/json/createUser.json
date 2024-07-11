@@ -1,0 +1,30 @@
+{
+  "experience": [
+    "5 years of software development experience, specializing in full-stack web development and cloud computing."
+  ],
+  "jobDescription": "We are looking for a skilled full-stack developer to join our team. The ideal candidate will have experience in building scalable web applications, working with both front-end and back-end technologies, and deploying applications on cloud platforms.",
+  "jobId": 12345,
+  "jobTitle": "Full-Stack Developer",
+  "project": [
+    {
+      "projectName": "E-commerce Platform Development",
+      "technology": [
+        "React.js",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "AWS"
+      ]
+    },
+    {
+      "projectName": "Social Media Analytics Tool",
+      "technology": [
+        "Angular",
+        "Python",
+        "Django",
+        "PostgreSQL",
+        "Google Cloud Platform"
+      ]
+    }
+  ]
+}
