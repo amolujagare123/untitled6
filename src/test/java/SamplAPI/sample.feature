@@ -90,6 +90,15 @@ Feature: all sample requests
        And match response.name == 'morpheus'
       * print "ResponseTime = " , responseTime
       And assert responseTime < 2000
+      And match response ==
+      """
+      {
+        "name": "#string",
+        "job": "#string",
+        "id": "#string",
+        "createdAt": "#string"
+      }
+      """
 
 
   @createUserEE
