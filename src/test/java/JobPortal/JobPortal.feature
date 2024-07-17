@@ -55,6 +55,67 @@ Feature: job portal application
     And match response.project[0].technology[*] contains ["React.js","Node.js"]
 
 
+  @CreateUserJsonSchema
+  Scenario: to check the create job request executes successfully
+    Given url 'http://localhost:9897/'
+    And path  '/normal/webapi/add'
+    And request
+    """
+    {
+  "experience": [
+    "5 years of software development experience, specializing in full-stack web development and cloud computing."
+  ],
+  "jobDescription": "We are looking for a skilled full-stack developer to join our team. The ideal candidate will have experience in building scalable web applications, working with both front-end and back-end technologies, and deploying applications on cloud platforms.",
+  "jobId": 12345,
+  "jobTitle": "Full-Stack Developer",
+  "project": [
+    {
+      "projectName": "E-commerce Platform Development",
+      "technology": [
+        "React.js",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "AWS"
+      ]
+    },
+    {
+      "projectName": "Social Media Analytics Tool",
+      "technology": [
+        "Angular",
+        "Python",
+        "Django",
+        "PostgreSQL",
+        "Google Cloud Platform"
+      ]
+    }
+  ]
+}
+
+    """
+    When method post
+    Then status 201
+    * def project =
+
+    """
+    {
+    "projectName": "#string",
+    "technology": "#[] #string"
+    }
+  """
+    And match response ==
+    """
+     {
+      "experience": "#[] #string",
+      "jobDescription": "#string",
+      "jobId": "#number",
+      "jobTitle": "#string",
+      "project": "#[] ##(project)"
+    }
+    """
+
+
+
   @CreateUserJsonFile
   Scenario: to check the create job request executes successfully
     Given url 'http://localhost:9897/'
@@ -165,5 +226,30 @@ Feature: job portal application
       * print 'a=' , a
       * print 'b=' , b
       * print 'c=' , c
+
+
+
+      @printingDemo
+      Scenario Outline:  to check various inputs
+        Given print '<url>'
+        When print '<resource>'
+        Then print '<method>'
+        Examples:
+          | url                   | resource            | method |
+          | http://localhost:9897 | /normal/webapi/add  | post   |
+          | http://localhost:9897 | /normal/webapi/all  | get    |
+          | http://localhost:9897 | /normal/webapi/find | get    |
+
+  @allGetRequests
+  Scenario Outline:  to check various inputs
+    Given url '<url>'
+    When path '<resource>'
+    And method <method>
+    Then status 200
+    Examples:
+      | url                   | resource                 | method |
+   #   | http://localhost:9897 | /normal/webapi/add  | post   |
+      | http://localhost:9897 | /normal/webapi/all       | get    |
+      | http://localhost:9897 | /normal/webapi/find?id=1 | get    |
 
 

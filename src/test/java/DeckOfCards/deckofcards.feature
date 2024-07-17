@@ -21,38 +21,72 @@ Feature: Deck of cards
 
 
   @drawCards
-  Scenario: shuffle cards check
-    Given path '/api/deck/0ty6dje9elfi/draw/'
+  Scenario: draw cards check
+    Given path "/api/deck/pivz5gap9hw9/draw/"
     And param count = 2
     When method get
     Then status 200
     * def image =
           """
-              {
-                  "svg": '#string',
-                  "png": '#string'
+                {
+                  "svg": "#string",
+                  "png": "#string"
                 }
           """
     * def cards =
-
         """
 
           {
-              "code": '#string',
-              "image": '#string',
-              "images": '##(image)',
-              "value": '#string',
-              "suit": '#string'
-
-        }
+              "code": "#string",
+              "image": "#string",
+              "images": "##(image)",
+              "value": "#string",
+              "suit": "#string"
+          }
 
         """
     And match response ==
     """
     {
-    "success": '#boolean',
-    "deck_id": '#string',
-    "cards": '#[] ##(cards)'
-    "remaining": '#number'
+    "success": "#boolean",
+    "deck_id": "#string",
+    "cards": "#[] ##(cards)",
+    "remaining": "#number"
    }
     """
+
+
+
+  @drawCards2
+  Scenario: draw cards check
+    Given path '/api/deck/pivz5gap9hw9/draw/'
+    And param count = 2
+    When method get
+    Then status 200
+    * def image =
+  """
+  {
+    "svg": "#string",
+    "png": "#string"
+  }
+  """
+
+    * def cards =
+  """
+  {
+    "code": "#string",
+    "image": "#string",
+    "images": "#(image)",
+    "value": "#string",
+    "suit": "#string"
+  }
+  """
+    And match response ==
+  """
+  {
+    "success": "#boolean",
+    "deck_id": "#string",
+    "cards": "#[] #(cards)",
+    "remaining": "#number"
+  }
+  """
