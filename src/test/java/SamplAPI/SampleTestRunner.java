@@ -9,6 +9,6 @@ public class SampleTestRunner {
            {
               return Karate.run("sample")
                       .relativeTo(getClass())
-                     .tags("@createUser");
+                     .tags("@createUserDataProvider");
            }
 }

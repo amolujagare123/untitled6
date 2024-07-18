@@ -1,0 +1,4 @@
+name,email,gender,status
+John Doe,johndoe1@example.com,Male,Active
+Jane Smith,janesmith1@example.com,Female,Inactive
+Alex Johnson,alexjohnson1@example.com,Other,Active

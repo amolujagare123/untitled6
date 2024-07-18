@@ -122,6 +122,28 @@ Feature: all sample requests
     * print "ResponseTime = " , responseTime
     And assert responseTime < 2000
 
+
+  @createUserDataProvider
+  Scenario Outline: to test the Post request creates users successfully
+
+    Given url myUrl
+    And path '/api/users'
+    * header Content-Type = 'application/json'
+    And  request
+      """
+      {
+        "name": "#(name)",
+        "job": "#(job)"
+       }
+      """
+    When method post
+    Then status 201
+    Examples:
+      | name   | job    |
+      | pankaj | HR     |
+      | Mayur  | Dev    |
+      | Amol   | Tester |
+
   @UpdateUser
   Scenario: to test the Put request Updates users successfully
      #   Given url 'https://reqres.in'

@@ -9,6 +9,6 @@ public class GoRestTestRunner {
     {
         return Karate.run("GoRest")
                 .relativeTo(getClass())
-                .tags("@GetSingleUser");
+                .tags("@createUserDataProvider2");
     }
 }
